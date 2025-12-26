@@ -1,0 +1,30 @@
+<!ELEMENT wineCatalog (wines, regions, wineries)>
+
+<!ELEMENT wines (wine+)>
+<!ELEMENT wine (name, origin, type, vintage, rating?, price, image, sommelierDescription)>
+<!ATTLIST wine
+    wineId ID #REQUIRED
+    regionIdRef IDREF #REQUIRED
+    wineryIdRef IDREF #REQUIRED
+>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT origin (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT vintage (#PCDATA)>
+<!ELEMENT rating (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ATTLIST price currency CDATA #REQUIRED>
+
+<!ELEMENT image EMPTY>
+<!ATTLIST image source ENTITY #REQUIRED>
+
+<!ELEMENT sommelierDescription (#PCDATA)>
+
+<!ELEMENT regions (region+)>
+<!ELEMENT region (name)>
+<!ATTLIST region regionId ID #REQUIRED>
+
+<!ELEMENT wineries (winery+)>
+<!ELEMENT winery (name)>
+<!ATTLIST winery wineryId ID #REQUIRED>

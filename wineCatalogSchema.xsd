@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="wineCatalog">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="wines" type="WinesType"/>
+                <xs:element name="regions" type="RegionsType"/>
+                <xs:element name="wineries" type="WineriesType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="WinesType">
+        <xs:sequence>
+            <xs:element name="wine" type="WineType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="WineType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="origin" type="xs:string"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="vintage" type="xs:gYear"/>
+            <xs:element name="rating" type="xs:string" minOccurs="0"/>
+            <xs:element name="price" type="PriceType"/>
+            <xs:element name="image" type="ImageType"/>
+            <xs:element name="sommelierDescription" type="xs:string"/>
+        </xs:sequence>
+
+        <xs:attribute name="wineId" type="xs:ID" use="required"/>
+        <xs:attribute name="wineryIdRef" type="xs:IDREF" use="required"/>
+        <xs:attribute name="regionIdRef" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="ImageType">
+        <xs:attribute name="source" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="PriceType">
+        <xs:simpleContent>
+            <xs:extension base="xs:decimal">
+                <xs:attribute name="currency" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="RegionsType">
+        <xs:sequence>
+            <xs:element name="region" type="RegionType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RegionType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="regionId" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="WineriesType">
+        <xs:sequence>
+            <xs:element name="winery" type="WineryType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="WineryType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="wineryId" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+</xs:schema>
