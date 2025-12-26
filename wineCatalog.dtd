@@ -1,5 +1,9 @@
 <!ELEMENT wineCatalog (wines, regions, wineries)>
 
+<!ATTLIST wineCatalog
+  xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+
 <!ELEMENT wines (wine+)>
 <!ELEMENT wine (name, origin, type, vintage, rating?, price, image, sommelierDescription)>
 <!ATTLIST wine
