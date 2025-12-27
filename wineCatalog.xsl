@@ -68,8 +68,6 @@
                         font-size: 0.9em;
                         color: #666;
                     }
-                    
-                    /* СТИЛОВЕ ЗА МЕНЮТО И ФИЛТРИТЕ */
                     .menu {
                         text-align: center;
                         margin-bottom: 20px;
@@ -118,7 +116,7 @@
                         background-color: #fff9c4;
                         border-left: 4px solid #ff9800;
                         font-size: 0.9em;
-                        display: none; /* Скрито по подразбиране */
+                        display: none;
                         border-radius: 0 4px 4px 0;
                     }
                     .review-item {
@@ -161,24 +159,31 @@
                         rows.forEach(r => tbody.appendChild(r));
                     }
 
-                    function filterByType(type) {
-                        getRows().forEach(row => {
-                            row.style.display =
-                                !type || row.dataset.type === type ? '' : 'none';
-                        });
-                    }
+                    function applyFilters() {
+                        let selectedType = document.getElementById('typeFilter').value;
+                        let selectedVintage = document.getElementById('vintageFilter').value;
+                        
+                        let rows = getRows();
 
-                    function filterByVintage(vintage) {
-                        getRows().forEach(row => {
-                            row.style.display =
-                                !vintage || row.dataset.vintage === vintage ? '' : 'none';
+                        rows.forEach(row => {
+                            let rowType = row.dataset.type;
+                            let rowVintage = row.dataset.vintage;
+
+                            let typeMatch = (selectedType === "" || rowType === selectedType);
+                            
+                            let vintageMatch = (selectedVintage === "" || rowVintage === selectedVintage);
+
+                            if (typeMatch &amp;&amp; vintageMatch) {
+                                row.style.display = '';
+                            } else {
+                                row.style.display = 'none';
+                            }
                         });
                     }
 
                     async function loadReviews(btn, wineId) {
                         let container = btn.nextElementSibling;
 
-                        // Логика за скриване/показване
                         if (container.style.display === 'block') {
                             container.style.display = 'none';
                             btn.innerText = 'Виж мнения';
@@ -188,7 +193,6 @@
                         btn.innerText = 'Зареждане...';
 
                         try {
-                            // 1. Изтегляне на XML файла
                             const response = await fetch('reviews.xml');
                             if (!response.ok) throw new Error("Грешка при връзка");
     
@@ -201,16 +205,11 @@
                             let found = false;
 
                             allReviews.forEach(review => {
-                                // Проверка дали ревюто е за текущото вино
                                 if (review.getAttribute('wineId') === wineId) {
                                     found = true;
-                                    
-                                    // Извличане на данни от XML таговете
                                     let user = review.querySelector('user').textContent;
                                     let comment = review.querySelector('comment').textContent;
                                     let rating = parseInt(review.getAttribute('rating'));
-
-                                    // Генериране на звезди
                                     let stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
                                     
                                     html += '<div class="review-item">';
@@ -232,7 +231,7 @@
 
                         } catch (error) {
                             console.error(error);
-                            container.innerHTML = 'Грешка: Не мога да заредя reviews.xml (проверете дали файлът съществува и дали ползвате локален сървър).';
+                            container.innerHTML = 'Грешка: Не мога да заредя reviews.xml';
                             container.style.display = 'block';
                             btn.innerText = 'Грешка';
                         }
@@ -253,14 +252,14 @@
 
                     <div class="menu">
                         <label>Подреждане по цена:</label>
-                        <select onchange="sortByPrice(this.value)">
+                        <select id="priceSort" onchange="sortByPrice(this.value)">
                             <option value="">—</option>
                             <option value="asc">Възходящо</option>
                             <option value="desc">Низходящо</option>
                         </select>
 
                         <label>Тип вино:</label>
-                        <select onchange="filterByType(this.value)">
+                        <select id="typeFilter" onchange="applyFilters()">
                             <option value="">Всички</option>
                             <xsl:for-each select="wineCatalog/wines/wine[not(type=preceding::type)]">
                                 <option>
@@ -270,7 +269,7 @@
                         </select>
 
                         <label>Реколта:</label>
-                        <select onchange="filterByVintage(this.value)">
+                        <select id="vintageFilter" onchange="applyFilters()">
                             <option value="">Всички</option>
                             <xsl:for-each select="wineCatalog/wines/wine[not(vintage=preceding::vintage)]">
                                 <xsl:sort select="vintage" data-type="number"/>
