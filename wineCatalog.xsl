@@ -85,14 +85,60 @@
                     .menu button:hover {
                         background-color: #5a2228;
                     }
+                    .menu label {
+                        margin-left: 15px; /* Разстояние от предишния елемент */
+                        margin-right: 5px; /* Разстояние до самото меню */
+                        font-weight: bold;
+                    }
+                    .menu select {
+                        padding: 8px;
+                        border-radius: 4px;
+                        border: 1px solid #ccc;
+                        margin-right: 15px; /* Разстояние след менюто */
+                        cursor: pointer;
+                    }
                 </style>
 
                 <script>
+                
                     function showSection(id) {
                         document.getElementById('allWines').style.display='none';
                         document.getElementById('byRegions').style.display='none';
                         document.getElementById('byWineries').style.display='none';
                         document.getElementById(id).style.display='block';
+                    }
+
+                    function getRows() {
+                        return Array.from(
+                            document.querySelectorAll('#allWines tbody tr')
+                        );
+                    }
+
+                    function sortByPrice(order) {
+                        let tbody = document.querySelector('#allWines tbody');
+                        let rows = getRows();
+
+                        rows.sort((a, b) => {
+                            let p1 = parseFloat(a.dataset.price);
+                            let p2 = parseFloat(b.dataset.price);
+                            return order === 'asc' ? p1 - p2 : p2 - p1;
+                        });
+
+                        rows.forEach(r => tbody.appendChild(r));
+                    }
+
+                    function filterByType(type) {
+                        getRows().forEach(row => {
+                            row.style.display =
+                                !type || row.dataset.type === type ? '' : 'none';
+                        });
+                    }
+
+                    function filterByVintage(vintage) {
+                        getRows().forEach(row => {
+                            row.style.display =
+                                !vintage || row.dataset.vintage === vintage ? '' : 'none';
+                        });
                     }
                 </script>
             </head>
@@ -108,6 +154,37 @@
 
                 <!-- ================= ALL WINES ================= -->
                 <div id="allWines">
+
+                    <div class="menu">
+                        <label>Подреждане по цена:</label>
+                        <select onchange="sortByPrice(this.value)">
+                            <option value="">—</option>
+                            <option value="asc">Възходящо</option>
+                            <option value="desc">Низходящо</option>
+                        </select>
+
+                        <label>Тип вино:</label>
+                        <select onchange="filterByType(this.value)">
+                            <option value="">Всички</option>
+                            <xsl:for-each select="wineCatalog/wines/wine[not(type=preceding::type)]">
+                                <option>
+                                    <xsl:value-of select="type"/>
+                                </option>
+                            </xsl:for-each>
+                        </select>
+
+                        <label>Реколта:</label>
+                        <select onchange="filterByVintage(this.value)">
+                            <option value="">Всички</option>
+                            <xsl:for-each select="wineCatalog/wines/wine[not(vintage=preceding::vintage)]">
+                                <xsl:sort select="vintage" data-type="number"/>
+                                <option>
+                                    <xsl:value-of select="vintage"/>
+                                </option>
+                            </xsl:for-each>
+                        </select>
+                    </div>
+
                     <xsl:call-template name="wineTable">
                         <xsl:with-param name="nodes" select="wineCatalog/wines/wine"/>
                     </xsl:call-template>
@@ -160,7 +237,7 @@
             <tbody>
                 <xsl:for-each select="$nodes">
                     <xsl:sort select="name"/>
-                    <tr>
+                    <tr data-price="{price}" data-type="{type}" data-vintage="{vintage}">
                         <td align="center">
                             <img class="wine-img"
                                  src="{unparsed-entity-uri(image/@source)}"/>
