@@ -16,7 +16,29 @@
     </review>
 
     <review wineId="wine6" rating="4">
-        <user>Сомелиер БГ</user>
-        <comment>Богат вкус на червени плодове, препоръчвам декантиране.</comment>
+        <user>Юли Маринов</user>
+        <comment>Много добра Сира. Перфектно вино за пица.</comment>
+    </review>
+
+    <review wineId="wine5" rating="4">
+        <user>Васил Божков</user>
+        <comment>Това вино беше невероятно добро. Свежо с лека киселинност в края и круша във вкуса. 
+            Много подходящо за морски дарове.</comment>
+    </review>
+
+    <review wineId="wine5" rating="4">
+        <user>Гергана Дончева</user>
+        <comment>Приятно следобедно вино!</comment>
+    </review>
+
+    <review wineId="wine8" rating="3">
+        <user>Василена Вълчанова</user>
+        <comment>Прекалено леко за моя вкус. Хубаво е, когато е добре охладено.</comment>
+    </review>
+
+    <review wineId="wine7" rating="4">
+        <user>Laurens Mauquoi</user>
+        <comment>A kind of special white wine. Nose of raisins, honeydew and some gooseberry. It is powerful in the palate. Even some tannins because of the Sur lie.
+            Taste stays long and wine is quite powerful!</comment>
     </review>
 </reviews>
