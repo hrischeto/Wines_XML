@@ -4,7 +4,6 @@
 
     <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
-    <!-- Keys -->
     <xsl:key name="regionLookup" match="region" use="@regionId"/>
     <xsl:key name="wineryLookup" match="winery" use="@wineryId"/>
 
@@ -69,6 +68,8 @@
                         font-size: 0.9em;
                         color: #666;
                     }
+                    
+                    /* СТИЛОВЕ ЗА МЕНЮТО И ФИЛТРИТЕ */
                     .menu {
                         text-align: center;
                         margin-bottom: 20px;
@@ -86,21 +87,54 @@
                         background-color: #5a2228;
                     }
                     .menu label {
-                        margin-left: 15px; /* Разстояние от предишния елемент */
-                        margin-right: 5px; /* Разстояние до самото меню */
+                        margin-left: 15px;
+                        margin-right: 5px;
                         font-weight: bold;
                     }
                     .menu select {
                         padding: 8px;
                         border-radius: 4px;
                         border: 1px solid #ccc;
-                        margin-right: 15px; /* Разстояние след менюто */
+                        margin-right: 15px;
                         cursor: pointer;
                     }
+                    .review-btn {
+                        background-color: #2c3e50;
+                        color: white;
+                        border: none;
+                        padding: 6px 12px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 0.85em;
+                        margin-top: 15px;
+                        transition: background 0.3s;
+                    }
+                    .review-btn:hover {
+                        background-color: #1a252f;
+                    }
+                    .review-container {
+                        margin-top: 10px;
+                        padding: 10px;
+                        background-color: #fff9c4;
+                        border-left: 4px solid #ff9800;
+                        font-size: 0.9em;
+                        display: none; /* Скрито по подразбиране */
+                        border-radius: 0 4px 4px 0;
+                    }
+                    .review-item {
+                        border-bottom: 1px solid #e0e0e0;
+                        padding-bottom: 8px;
+                        margin-bottom: 8px;
+                    }
+                    .review-item:last-child {
+                        border-bottom: none;
+                        margin-bottom: 0;
+                    }
+                    .review-user { font-weight: bold; color: #333; }
+                    .review-stars { color: #ff9800; float: right;}
                 </style>
 
                 <script>
-                
                     function showSection(id) {
                         document.getElementById('allWines').style.display='none';
                         document.getElementById('byRegions').style.display='none';
@@ -140,6 +174,69 @@
                                 !vintage || row.dataset.vintage === vintage ? '' : 'none';
                         });
                     }
+
+                    async function loadReviews(btn, wineId) {
+                        let container = btn.nextElementSibling;
+
+                        // Логика за скриване/показване
+                        if (container.style.display === 'block') {
+                            container.style.display = 'none';
+                            btn.innerText = 'Виж мнения';
+                            return;
+                        }
+
+                        btn.innerText = 'Зареждане...';
+
+                        try {
+                            // 1. Изтегляне на XML файла
+                            const response = await fetch('reviews.xml');
+                            if (!response.ok) throw new Error("Грешка при връзка");
+    
+                            const textData = await response.text();
+                            const parser = new DOMParser();
+                            const xmlDoc = parser.parseFromString(textData, "text/xml");
+                            const allReviews = xmlDoc.querySelectorAll('review');
+                            
+                            let html = '';
+                            let found = false;
+
+                            allReviews.forEach(review => {
+                                // Проверка дали ревюто е за текущото вино
+                                if (review.getAttribute('wineId') === wineId) {
+                                    found = true;
+                                    
+                                    // Извличане на данни от XML таговете
+                                    let user = review.querySelector('user').textContent;
+                                    let comment = review.querySelector('comment').textContent;
+                                    let rating = parseInt(review.getAttribute('rating'));
+
+                                    // Генериране на звезди
+                                    let stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                                    
+                                    html += '<div class="review-item">';
+                                    html += '<span class="review-user">' + user + '</span>';
+                                    html += '<span class="review-stars">' + stars + '</span><br/>';
+                                    html += '<i>"' + comment + '"</i>';
+                                    html += '</div>';
+                                }
+                            });
+
+                            if (found) {
+                                container.innerHTML = html;
+                            } else {
+                                container.innerHTML = '<i>Няма добавени мнения за това вино.</i>';
+                            }
+
+                            container.style.display = 'block';
+                            btn.innerText = 'Скрий мнения';
+
+                        } catch (error) {
+                            console.error(error);
+                            container.innerHTML = 'Грешка: Не мога да заредя reviews.xml (проверете дали файлът съществува и дали ползвате локален сървър).';
+                            container.style.display = 'block';
+                            btn.innerText = 'Грешка';
+                        }
+                    }
                 </script>
             </head>
 
@@ -152,7 +249,6 @@
                     <button onclick="showSection('byWineries')">По изби</button>
                 </div>
 
-                <!-- ================= ALL WINES ================= -->
                 <div id="allWines">
 
                     <div class="menu">
@@ -190,7 +286,6 @@
                     </xsl:call-template>
                 </div>
 
-                <!-- ================= BY REGIONS ================= -->
                 <div id="byRegions" style="display:none;">
                     <xsl:for-each select="wineCatalog/regions/region">
                         <h2><xsl:value-of select="name"/></h2>
@@ -203,7 +298,6 @@
                     </xsl:for-each>
                 </div>
 
-                <!-- ================= BY WINERIES ================= -->
                 <div id="byWineries" style="display:none;">
                     <xsl:for-each select="wineCatalog/wineries/winery">
                         <h2><xsl:value-of select="name"/></h2>
@@ -220,7 +314,6 @@
         </html>
     </xsl:template>
 
-    <!-- ================= REUSABLE TABLE ================= -->
     <xsl:template name="wineTable">
         <xsl:param name="nodes"/>
 
@@ -257,6 +350,13 @@
                         </td>
                         <td>
                             <xsl:value-of select="sommelierDescription"/>
+                            
+                            <br/>
+                            <button class="review-btn" onclick="loadReviews(this, '{@wineId}')">
+                                Виж мнения
+                            </button>
+                            <div class="review-container">
+                                </div>
                         </td>
                         <td>
                             <div class="price-tag">

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reviews>
+    <review wineId="wine1" rating="5">
+        <user>Иван Петров</user>
+        <comment>Изключително свежо вино, перфектно за лятото!</comment>
+    </review>
+
+    <review wineId="wine1" rating="4">
+        <user>Мария Г.</user>
+        <comment>Хареса ми, но цената е малко висока.</comment>
+    </review>
+
+    <review wineId="wine2" rating="5">
+        <user>Георги Димитров</user>
+        <comment>Топ вино! Драгомир никога не разочароват.</comment>
+    </review>
+
+    <review wineId="wine6" rating="4">
+        <user>Сомелиер БГ</user>
+        <comment>Богат вкус на червени плодове, препоръчвам декантиране.</comment>
+    </review>
+</reviews>
