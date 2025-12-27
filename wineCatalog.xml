@@ -20,165 +20,107 @@
     <wines>
         <wine wineId="wine1" wineryIdRef="winery1" regionIdRef="region1">
             <name>Riverine Hills Karepe Sauvignon Blanc</name>
-            <origin>България</origin>
             <type>Совиньон блан</type>
             <vintage>2022</vintage>
-            <rating>3/5</rating>
-            <price currency="BGN">100000</price>
+            <price currency="BGN">100000.00</price>
             <image source="wine_img01"/>
-            <sommelierDescription>
-                Много нежен светло-зеленикав цвят. Сортов нос с нотки на бял пипер,
-                грахова шушулка, коприва и бяла праскова. Тялото е леко, ефирно
-                с пикантно-грейпфрутов финал.
-            </sommelierDescription>
+            <origin>България</origin>
+            <rating>3/5</rating>
+            <sommelierDescription>Много нежен светло-зеленикав цвят. Сортов нос с нотки на бял пипер.</sommelierDescription>
         </wine>
 
         <wine wineId="wine2" wineryIdRef="winery2" regionIdRef="region2">
-            <name>Dragomir Special Selection Rubin &amp; Merlot &amp; Cabernet Sauvignon</name>
-            <origin>България</origin>
+            <name>Dragomir Special Selection Rubin &amp; Merlot</name>
             <type>Купаж</type>
             <vintage>2012</vintage>
-            <rating>4/5</rating>
-            <price currency="BGN">140</price>
+            <price currency="BGN">140.00</price>
             <image source="wine_img02"/>
-            <sommelierDescription>
-                Наситен, мастилен цвят с пурпурен пръстен. Носът е сензационен –
-                дафинов лист, месо, сладка доматена салца, печени чушки и землисти нюанси.
-                Мощно тяло с кадифени танини и комплексен финал.
-            </sommelierDescription>
+            <origin>България</origin>
+            <rating>4/5</rating>
+            <sommelierDescription>Наситен, мастилен цвят. Носът е сензационен – дафинов лист и печени чушки.</sommelierDescription>
         </wine>
 
         <wine wineId="wine3" wineryIdRef="winery3" regionIdRef="region1">
             <name>Maxxima Reserve Cabernet Sauvignon</name>
-            <origin>България</origin>
             <type>Каберне Совиньон</type>
             <vintage>2004</vintage>
-            <price currency="BGN">19</price>
+            <price currency="BGN">19.00</price>
             <image source="wine_img03"/>
-            <sommelierDescription>
-                Гранатовочервен цвят с керемидени оттенъци. Благороден нос
-                с доматени листа, сушено месо и сухи билки.
-            </sommelierDescription>
+            <origin>България</origin>
+            <sommelierDescription>Гранатовочервен цвят. Благороден нос с доматени листа и сухи билки.</sommelierDescription>
         </wine>
 
         <wine wineId="wine4" wineryIdRef="winery4" regionIdRef="region1">
             <name>Magura Rabisha Sauvignon Blanc</name>
-            <origin>България</origin>
             <type>Совиньон блан</type>
             <vintage>2024</vintage>
-            <rating>3/5</rating>
-            <price currency="BGN">18</price>
+            <price currency="BGN">18.00</price>
             <image source="wine_img04"/>
-            <sommelierDescription>
-                Бледозлатист цвят, свеж сортов нос с папрат, зелена джанка,
-                киви и лимонова кора.
-            </sommelierDescription>
+            <origin>България</origin>
+            <rating>3/5</rating>
+            <sommelierDescription>Бледозлатист цвят, свеж сортов нос с папрат и киви.</sommelierDescription>
         </wine>
 
         <wine wineId="wine5" wineryIdRef="winery5" regionIdRef="region3">
             <name>Tsarev Brod Sauvignon Blanc Reserve</name>
-            <origin>България</origin>
             <type>Совиньон блан</type>
             <vintage>2024</vintage>
-            <rating>4/5</rating>
-            <price currency="BGN">33</price>
+            <price currency="BGN">33.00</price>
             <image source="wine_img05"/>
-            <sommelierDescription>
-                Интензивен нос с лимончело, маракуя и сладки подправки.
-                Маслено, сочно и леко горчиво на финала.
-            </sommelierDescription>
+            <origin>България</origin>
+            <rating>4/5</rating>
+            <sommelierDescription>Интензивен нос с лимончело. Маслено, сочно и леко горчиво.</sommelierDescription>
         </wine>
 
         <wine wineId="wine6" wineryIdRef="winery6" regionIdRef="region4">
             <name>Bassarea Syrah Reserve</name>
-            <origin>България</origin>
             <type>Сира</type>
             <vintage>2019</vintage>
-            <rating>4/5</rating>
-            <price currency="BGN">23</price>
+            <price currency="BGN">23.00</price>
             <image source="wine_img06"/>
-            <sommelierDescription>
-                Тъмнорубинен цвят, нос с черен пипер, кожа и печени меса.
-                Кадифено тяло с потенциал за отлежаване.
-            </sommelierDescription>
+            <origin>България</origin>
+            <rating>4/5</rating>
+            <sommelierDescription>Тъмнорубинен цвят, нос с черен пипер и кожа.</sommelierDescription>
         </wine>
 
         <wine wineId="wine7" wineryIdRef="winery7" regionIdRef="region2">
             <name>Villa Melnik Aplauz Chardonnay Sur Lie</name>
-            <origin>България</origin>
             <type>Шардоне</type>
             <vintage>2016</vintage>
-            <rating>3/5</rating>
-            <price currency="BGN">19</price>
+            <price currency="BGN">19.00</price>
             <image source="wine_img07"/>
-            <sommelierDescription>
-                Златист цвят, нос на масло, ванилия и кроасан.
-                Плътно и дълго с лек пикантен финал.
-            </sommelierDescription>
+            <origin>България</origin>
+            <rating>3/5</rating>
+            <sommelierDescription>Златист цвят, нос на масло, ванилия и кроасан.</sommelierDescription>
         </wine>
 
         <wine wineId="wine8" wineryIdRef="winery8" regionIdRef="region2">
             <name>Via Verde Expressions Misket &amp; Muscat</name>
-            <origin>България</origin>
             <type>Купаж</type>
             <vintage>2023</vintage>
-            <rating>3/5</rating>
-            <price currency="BGN">20</price>
+            <price currency="BGN">20.00</price>
             <image source="wine_img08"/>
-            <sommelierDescription>
-                Бледо сламест цвят, флорален нос и елегантен,
-                пикантен финал.
-            </sommelierDescription>
+            <origin>България</origin>
+            <rating>3/5</rating>
+            <sommelierDescription>Бледо сламест цвят, флорален нос и елегантен финал.</sommelierDescription>
         </wine>
     </wines>
 
-<regions>
-        <region regionId="region1">
-            <name>Дунавска равнина</name>
-        </region>
-        <region regionId="region2">
-            <name>Тракийска низина</name>
-        </region>
-        <region regionId="region3">
-            <name>Черноморие</name>
-        </region>
-        <region regionId="region4">
-            <name>Сакар</name>
-        </region>
+    <regions>
+        <region regionId="region1"><name>Дунавска равнина</name></region>
+        <region regionId="region2"><name>Тракийска низина</name></region>
+        <region regionId="region3"><name>Черноморие</name></region>
+        <region regionId="region4"><name>Сакар</name></region>
     </regions>
 
     <wineries>
-        <winery wineryId="winery1">
-            <name>Ривърайн Хилс</name>
-        </winery>
-
-        <winery wineryId="winery2">
-            <name>Драгомир</name>
-        </winery>
-
-        <winery wineryId="winery3">
-            <name>Максима Селларс</name>
-        </winery>
-
-        <winery wineryId="winery4">
-            <name>Магура</name>
-        </winery>
-
-        <winery wineryId="winery5">
-            <name>Царев брод</name>
-        </winery>
-
-        <winery wineryId="winery6">
-            <name>Вила Басареа</name>
-        </winery>
-
-        <winery wineryId="winery7">
-            <name>Вила Мелник</name>
-        </winery>
-
-        <winery wineryId="winery8">
-            <name>Виа Верде</name>
-        </winery>
+        <winery wineryId="winery1"><name>Ривърайн Хилс</name></winery>
+        <winery wineryId="winery2"><name>Драгомир</name></winery>
+        <winery wineryId="winery3"><name>Максима Селларс</name></winery>
+        <winery wineryId="winery4"><name>Магура</name></winery>
+        <winery wineryId="winery5"><name>Царев брод</name></winery>
+        <winery wineryId="winery6"><name>Вила Басареа</name></winery>
+        <winery wineryId="winery7"><name>Вила Мелник</name></winery>
+        <winery wineryId="winery8"><name>Виа Верде</name></winery>
     </wineries>
-
 </wineCatalog>

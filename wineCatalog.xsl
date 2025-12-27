@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
@@ -11,367 +10,315 @@
         <html>
             <head>
                 <title>Каталог на Български Вина</title>
-
                 <style>
-                    body {
-                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                        background-color: #f9f9f9;
-                        margin: 20px;
-                        color: #333;
+                    body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; padding: 20px; color: #333; }
+                    h1 { text-align: center; color: #722f37; border-bottom: 3px solid #722f37; padding-bottom: 15px; }
+                    
+                    /* --- CONTROLS --- */
+                    .control-panel { 
+                        background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; 
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; align-items: center;
                     }
-                    h1 {
-                        text-align: center;
-                        color: #722f37;
-                        border-bottom: 2px solid #722f37;
-                        padding-bottom: 10px;
+                    .btn-group button { 
+                        padding: 8px 12px; margin-right: 5px; cursor: pointer; border: 1px solid #722f37; 
+                        background: white; color: #722f37; border-radius: 4px; font-weight: bold;
                     }
-                    h2 {
-                        margin-top: 40px;
-                        color: #722f37;
+                    .btn-group button:hover { background: #722f37; color: white; }
+                    
+                    .filters { display: flex; gap: 10px; align-items: center; }
+                    .filters select { padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+                    
+                    /* --- GRID --- */
+                    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+                    
+                    /* --- CARDS --- */
+                    .wine-card { 
+                        background: white; border-radius: 8px; overflow: hidden; 
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;
+                        display: flex; flex-direction: column; text-align: center; padding-bottom: 10px;
                     }
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        background-color: white;
-                        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                        margin-top: 15px;
-                    }
-                    th {
-                        background-color: #722f37;
-                        color: white;
-                        padding: 12px;
-                        text-align: left;
-                    }
-                    td {
-                        border-bottom: 1px solid #ddd;
-                        padding: 15px;
-                        vertical-align: top;
-                    }
-                    tr:hover {
-                        background-color: #f1f1f1;
-                    }
-                    .wine-img {
-                        max-width: 100px;
-                        max-height: 150px;
-                        border-radius: 4px;
-                        box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-                    }
-                    .price-tag {
-                        font-weight: bold;
-                        color: #2c7a2c;
-                    }
-                    .rating {
-                        color: #ff9800;
-                        font-weight: bold;
-                    }
-                    .meta-info {
-                        font-size: 0.9em;
-                        color: #666;
-                    }
-                    .menu {
-                        text-align: center;
-                        margin-bottom: 20px;
-                    }
-                    .menu button {
-                        padding: 10px 20px;
-                        margin: 5px;
-                        border: none;
-                        background-color: #722f37;
-                        color: white;
-                        cursor: pointer;
-                        border-radius: 4px;
-                    }
-                    .menu button:hover {
-                        background-color: #5a2228;
-                    }
-                    .menu label {
-                        margin-left: 15px;
-                        margin-right: 5px;
-                        font-weight: bold;
-                    }
-                    .menu select {
-                        padding: 8px;
-                        border-radius: 4px;
-                        border: 1px solid #ccc;
-                        margin-right: 15px;
-                        cursor: pointer;
-                    }
-                    .review-btn {
-                        background-color: #2c3e50;
-                        color: white;
-                        border: none;
-                        padding: 6px 12px;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        font-size: 0.85em;
-                        margin-top: 15px;
-                        transition: background 0.3s;
-                    }
-                    .review-btn:hover {
-                        background-color: #1a252f;
-                    }
-                    .review-container {
-                        margin-top: 10px;
-                        padding: 10px;
-                        background-color: #fff9c4;
-                        border-left: 4px solid #ff9800;
-                        font-size: 0.9em;
-                        display: none;
-                        border-radius: 0 4px 4px 0;
-                    }
-                    .review-item {
-                        border-bottom: 1px solid #e0e0e0;
-                        padding-bottom: 8px;
-                        margin-bottom: 8px;
-                    }
-                    .review-item:last-child {
-                        border-bottom: none;
-                        margin-bottom: 0;
-                    }
-                    .review-user { font-weight: bold; color: #333; }
-                    .review-stars { color: #ff9800; float: right;}
+                    .wine-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+                    .card-image { width: 100%; height: 180px; object-fit: contain; background: #f0f0f0; padding: 10px; box-sizing: border-box; }
+                    .card-name { padding: 10px; font-weight: bold; color: #2c3e50; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+                    .card-price { margin-top: auto; color: #722f37; font-weight: bold; font-size: 1.1em; }
+                    
+                    /* --- SECTIONS --- */
+                    .view-section { display: none; }
+                    #view-all { display: block; } /* Default visible */
+                    h2.group-title { width: 100%; color: #722f37; border-left: 5px solid #722f37; padding-left: 10px; margin-top: 30px; }
+
+                    /* --- DETAILS PAGE --- */
+                    .wine-page { display: none; background: white; max-width: 900px; margin: 0 auto; padding: 30px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+                    .back-btn { background: #722f37; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-bottom: 20px; }
+                    .page-content { display: flex; gap: 30px; flex-wrap: wrap; }
+                    .page-image img { max-width: 300px; width: 100%; border-radius: 8px; }
+                    .page-info { flex: 1; }
+                    .info-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+                    .info-table td { padding: 8px 0; border-bottom: 1px solid #eee; }
+                    .label { font-weight: bold; width: 120px; }
+                    
+                    /* --- REVIEWS --- */
+                    .reviews-section { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+                    .review-container { margin-top: 15px; padding: 10px; background: #fff9c4; border-left: 4px solid #ff9800; display: none; }
+                    .review-item { padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #ddd; }
+                    .review-stars { float: right; color: #ff9800; }
                 </style>
 
-                <script>
-                    function showSection(id) {
-                        document.getElementById('allWines').style.display='none';
-                        document.getElementById('byRegions').style.display='none';
-                        document.getElementById('byWineries').style.display='none';
-                        document.getElementById(id).style.display='block';
+                <script type="text/javascript">
+                <![CDATA[
+                    // 1. SWITCH VIEWS
+                    function switchView(viewId) {
+                        // Hide all sections and pages
+                        var sections = document.querySelectorAll('.view-section');
+                        for(var i=0; i<sections.length; i++) sections[i].style.display = 'none';
+                        
+                        var pages = document.querySelectorAll('.wine-page');
+                        for(var i=0; i<pages.length; i++) pages[i].style.display = 'none';
+
+                        // Show Control Panel
+                        document.getElementById('control-panel').style.display = 'flex';
+
+                        // Show selected view
+                        document.getElementById(viewId).style.display = 'block';
+
+                        // Only show Filters/Sort on the "All Wines" view
+                        var filters = document.getElementById('filter-controls');
+                        if(viewId === 'view-all') {
+                            filters.style.visibility = 'visible';
+                        } else {
+                            filters.style.visibility = 'hidden';
+                        }
                     }
 
-                    function getRows() {
-                        return Array.from(
-                            document.querySelectorAll('#allWines tbody tr')
-                        );
+                    // 2. OPEN DETAIL PAGE
+                    function openWinePage(id) {
+                        document.getElementById('control-panel').style.display = 'none';
+                        var sections = document.querySelectorAll('.view-section');
+                        for(var i=0; i<sections.length; i++) sections[i].style.display = 'none';
+                        
+                        document.getElementById('page-' + id).style.display = 'block';
+                        window.scrollTo(0,0);
                     }
 
+                    function backToCatalog(id) {
+                        document.getElementById('page-' + id).style.display = 'none';
+                        document.getElementById('control-panel').style.display = 'flex';
+                        document.getElementById('view-all').style.display = 'block';
+                        document.getElementById('filter-controls').style.visibility = 'visible';
+                    }
+
+                    // 3. SORTING
                     function sortByPrice(order) {
-                        let tbody = document.querySelector('#allWines tbody');
-                        let rows = getRows();
+                        if(!order) return;
+                        var grid = document.getElementById('grid-all');
+                        var cards = Array.from(grid.getElementsByClassName('wine-card'));
 
-                        rows.sort((a, b) => {
-                            let p1 = parseFloat(a.dataset.price);
-                            let p2 = parseFloat(b.dataset.price);
+                        cards.sort(function(a, b) {
+                            var p1 = parseFloat(a.getAttribute('data-price'));
+                            var p2 = parseFloat(b.getAttribute('data-price'));
                             return order === 'asc' ? p1 - p2 : p2 - p1;
                         });
 
-                        rows.forEach(r => tbody.appendChild(r));
+                        // Re-append to DOM
+                        for(var i=0; i<cards.length; i++) {
+                            grid.appendChild(cards[i]);
+                        }
                     }
 
+                    // 4. FILTERING
                     function applyFilters() {
-                        let selectedType = document.getElementById('typeFilter').value;
-                        let selectedVintage = document.getElementById('vintageFilter').value;
+                        var typeVal = document.getElementById('filterType').value;
+                        var vintageVal = document.getElementById('filterVintage').value;
                         
-                        let rows = getRows();
+                        var grid = document.getElementById('grid-all');
+                        var cards = grid.getElementsByClassName('wine-card');
 
-                        rows.forEach(row => {
-                            let rowType = row.dataset.type;
-                            let rowVintage = row.dataset.vintage;
+                        for(var i=0; i<cards.length; i++) {
+                            var card = cards[i];
+                            var cType = card.getAttribute('data-type');
+                            var cVintage = card.getAttribute('data-vintage');
 
-                            let typeMatch = (selectedType === "" || rowType === selectedType);
-                            
-                            let vintageMatch = (selectedVintage === "" || rowVintage === selectedVintage);
+                            // Check matches
+                            var matchType = (typeVal === "" || cType === typeVal);
+                            var matchVintage = (vintageVal === "" || cVintage === vintageVal);
 
-                            if (typeMatch &amp;&amp; vintageMatch) {
-                                row.style.display = '';
+                            if(matchType && matchVintage) {
+                                card.style.display = 'flex';
                             } else {
-                                row.style.display = 'none';
+                                card.style.display = 'none';
                             }
-                        });
+                        }
                     }
 
+                    // 5. FETCH REVIEWS
                     async function loadReviews(btn, wineId) {
-                        let container = btn.nextElementSibling;
-
-                        if (container.style.display === 'block') {
-                            container.style.display = 'none';
-                            btn.innerText = 'Виж мнения';
+                        var container = btn.nextElementSibling;
+                        if(container.getAttribute('data-loaded') === 'true') {
+                            container.style.display = (container.style.display === 'block') ? 'none' : 'block';
+                            btn.innerText = (container.style.display === 'block') ? 'Скрий мнения' : 'Виж мнения';
                             return;
                         }
 
                         btn.innerText = 'Зареждане...';
-
                         try {
                             const response = await fetch('reviews.xml');
-                            if (!response.ok) throw new Error("Грешка при връзка");
-    
-                            const textData = await response.text();
+                            if(!response.ok) throw new Error("Connection failed");
+                            const text = await response.text();
                             const parser = new DOMParser();
-                            const xmlDoc = parser.parseFromString(textData, "text/xml");
-                            const allReviews = xmlDoc.querySelectorAll('review');
+                            const doc = parser.parseFromString(text, "text/xml");
                             
                             let html = '';
                             let found = false;
+                            let reviews = doc.querySelectorAll('review');
 
-                            allReviews.forEach(review => {
-                                if (review.getAttribute('wineId') === wineId) {
+                            reviews.forEach(function(r) {
+                                if(r.getAttribute('wineId') === wineId) {
                                     found = true;
-                                    let user = review.querySelector('user').textContent;
-                                    let comment = review.querySelector('comment').textContent;
-                                    let rating = parseInt(review.getAttribute('rating'));
-                                    let stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                                    let rating = r.getAttribute('rating');
+                                    let stars = '';
+                                    for(let k=0; k<rating; k++) stars += '★';
+                                    for(let k=rating; k<5; k++) stars += '☆';
                                     
-                                    html += '<div class="review-item">';
-                                    html += '<span class="review-user">' + user + '</span>';
-                                    html += '<span class="review-stars">' + stars + '</span><br/>';
-                                    html += '<i>"' + comment + '"</i>';
-                                    html += '</div>';
+                                    let user = r.querySelector('user').textContent;
+                                    let comment = r.querySelector('comment').textContent;
+                                    
+                                    html += '<div class="review-item"><span style="font-weight:bold">' + user + '</span>' +
+                                            '<span class="review-stars">' + stars + '</span><br/>' +
+                                            '<i>"' + comment + '"</i></div>';
                                 }
                             });
-
-                            if (found) {
-                                container.innerHTML = html;
-                            } else {
-                                container.innerHTML = '<i>Няма добавени мнения за това вино.</i>';
-                            }
-
+                            
+                            container.innerHTML = found ? html : '<i>Няма мнения.</i>';
                             container.style.display = 'block';
+                            container.setAttribute('data-loaded', 'true');
                             btn.innerText = 'Скрий мнения';
-
-                        } catch (error) {
-                            console.error(error);
-                            container.innerHTML = 'Грешка: Не мога да заредя reviews.xml';
-                            container.style.display = 'block';
-                            btn.innerText = 'Грешка';
+                        } catch(e) {
+                            console.error(e);
+                            btn.innerText = 'Грешка при зареждане';
                         }
                     }
+                ]]>
                 </script>
             </head>
-
             <body>
                 <h1>Каталог на Български Вина</h1>
 
-                <div class="menu">
-                    <button onclick="showSection('allWines')">Всички вина (А-Я)</button>
-                    <button onclick="showSection('byRegions')">По региони</button>
-                    <button onclick="showSection('byWineries')">По изби</button>
-                </div>
+                <div id="control-panel" class="control-panel">
+                    <div class="btn-group">
+                        <button onclick="switchView('view-all')">Всички</button>
+                        <button onclick="switchView('view-regions')">По Региони</button>
+                        <button onclick="switchView('view-wineries')">По Изби</button>
+                    </div>
 
-                <div id="allWines">
-
-                    <div class="menu">
-                        <label>Подреждане по цена:</label>
-                        <select id="priceSort" onchange="sortByPrice(this.value)">
+                    <div id="filter-controls" class="filters">
+                        <label>Цена:</label>
+                        <select onchange="sortByPrice(this.value)">
                             <option value="">—</option>
                             <option value="asc">Възходящо</option>
                             <option value="desc">Низходящо</option>
                         </select>
 
-                        <label>Тип вино:</label>
-                        <select id="typeFilter" onchange="applyFilters()">
+                        <label>Тип:</label>
+                        <select id="filterType" onchange="applyFilters()">
                             <option value="">Всички</option>
                             <xsl:for-each select="wineCatalog/wines/wine[not(type=preceding::type)]">
-                                <option>
-                                    <xsl:value-of select="type"/>
-                                </option>
+                                <option value="{type}"><xsl:value-of select="type"/></option>
                             </xsl:for-each>
                         </select>
 
                         <label>Реколта:</label>
-                        <select id="vintageFilter" onchange="applyFilters()">
+                        <select id="filterVintage" onchange="applyFilters()">
                             <option value="">Всички</option>
                             <xsl:for-each select="wineCatalog/wines/wine[not(vintage=preceding::vintage)]">
                                 <xsl:sort select="vintage" data-type="number"/>
-                                <option>
-                                    <xsl:value-of select="vintage"/>
-                                </option>
+                                <option value="{vintage}"><xsl:value-of select="vintage"/></option>
                             </xsl:for-each>
                         </select>
                     </div>
-
-                    <xsl:call-template name="wineTable">
-                        <xsl:with-param name="nodes" select="wineCatalog/wines/wine"/>
-                    </xsl:call-template>
                 </div>
 
-                <div id="byRegions" style="display:none;">
+                <div id="view-all" class="view-section">
+                    <div id="grid-all" class="catalog-grid">
+                        <xsl:call-template name="renderCards">
+                            <xsl:with-param name="items" select="wineCatalog/wines/wine"/>
+                        </xsl:call-template>
+                    </div>
+                </div>
+
+                <div id="view-regions" class="view-section">
                     <xsl:for-each select="wineCatalog/regions/region">
-                        <h2><xsl:value-of select="name"/></h2>
-
-                        <xsl:variable name="rid" select="@regionId"/>
-                        <xsl:call-template name="wineTable">
-                            <xsl:with-param name="nodes"
-                                select="/wineCatalog/wines/wine[@regionIdRef=$rid]"/>
-                        </xsl:call-template>
+                        <h2 class="group-title"><xsl:value-of select="name"/></h2>
+                        <div class="catalog-grid">
+                            <xsl:variable name="rid" select="@regionId"/>
+                            <xsl:call-template name="renderCards">
+                                <xsl:with-param name="items" select="/wineCatalog/wines/wine[@regionIdRef=$rid]"/>
+                            </xsl:call-template>
+                        </div>
                     </xsl:for-each>
                 </div>
 
-                <div id="byWineries" style="display:none;">
+                <div id="view-wineries" class="view-section">
                     <xsl:for-each select="wineCatalog/wineries/winery">
-                        <h2><xsl:value-of select="name"/></h2>
-
-                        <xsl:variable name="wid" select="@wineryId"/>
-                        <xsl:call-template name="wineTable">
-                            <xsl:with-param name="nodes"
-                                select="/wineCatalog/wines/wine[@wineryIdRef=$wid]"/>
-                        </xsl:call-template>
+                        <h2 class="group-title"><xsl:value-of select="name"/></h2>
+                        <div class="catalog-grid">
+                            <xsl:variable name="wid" select="@wineryId"/>
+                            <xsl:call-template name="renderCards">
+                                <xsl:with-param name="items" select="/wineCatalog/wines/wine[@wineryIdRef=$wid]"/>
+                            </xsl:call-template>
+                        </div>
                     </xsl:for-each>
                 </div>
 
+                <xsl:for-each select="wineCatalog/wines/wine">
+                    <div id="page-{@wineId}" class="wine-page">
+                        <button class="back-btn" onclick="backToCatalog('{@wineId}')">← Обратно</button>
+                        <div class="page-content">
+                            <div class="page-image">
+                                <img src="{unparsed-entity-uri(image/@source)}" />
+                            </div>
+                            <div class="page-info">
+                                <h2 style="color:#722f37; margin-top:0;"><xsl:value-of select="name"/></h2>
+                                <table class="info-table">
+                                    <tr><td class="label">Цена:</td><td style="color:#722f37; font-weight:bold;"><xsl:value-of select="price"/> <xsl:value-of select="price/@currency"/></td></tr>
+                                    <tr><td class="label">Тип:</td><td><xsl:value-of select="type"/></td></tr>
+                                    <tr><td class="label">Реколта:</td><td><xsl:value-of select="vintage"/></td></tr>
+                                    <tr><td class="label">Изба:</td><td><xsl:value-of select="key('wineryLookup', @wineryIdRef)/name"/></td></tr>
+                                    <tr><td class="label">Регион:</td><td><xsl:value-of select="key('regionLookup', @regionIdRef)/name"/></td></tr>
+                                    <xsl:if test="rating">
+                                        <tr><td class="label">Рейтинг:</td><td><xsl:value-of select="rating"/></td></tr>
+                                    </xsl:if>
+                                </table>
+                                <div style="margin-top:20px; font-style:italic; border-left:4px solid #ff9800; padding:10px; background:#fdfdfd;">
+                                    <xsl:value-of select="sommelierDescription"/>
+                                </div>
+                                <div class="reviews-section">
+                                    <h3>Мнения</h3>
+                                    <button onclick="loadReviews(this, '{@wineId}')" style="cursor:pointer; padding:6px 12px;">Виж мнения</button>
+                                    <div class="review-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xsl:for-each>
             </body>
         </html>
     </xsl:template>
 
-    <xsl:template name="wineTable">
-        <xsl:param name="nodes"/>
-
-        <table>
-            <thead>
-                <tr>
-                    <th width="120">Снимка</th>
-                    <th width="25%">Вино &amp; Характеристики</th>
-                    <th width="20%">Произход</th>
-                    <th>Описание на Сомелиера</th>
-                    <th width="10%">Цена &amp; Рейтинг</th>
-                </tr>
-            </thead>
-            <tbody>
-                <xsl:for-each select="$nodes">
-                    <xsl:sort select="name"/>
-                    <tr data-price="{price}" data-type="{type}" data-vintage="{vintage}">
-                        <td align="center">
-                            <img class="wine-img"
-                                 src="{unparsed-entity-uri(image/@source)}"/>
-                        </td>
-                        <td>
-                            <strong><xsl:value-of select="name"/></strong><br/>
-                            <span class="meta-info">
-                                Тип: <xsl:value-of select="type"/> |
-                                Реколта: <xsl:value-of select="vintage"/>
-                            </span>
-                        </td>
-                        <td class="meta-info">
-                            Изба:
-                            <xsl:value-of select="key('wineryLookup', @wineryIdRef)/name"/><br/>
-                            Регион:
-                            <xsl:value-of select="key('regionLookup', @regionIdRef)/name"/>
-                        </td>
-                        <td>
-                            <xsl:value-of select="sommelierDescription"/>
-                            
-                            <br/>
-                            <button class="review-btn" onclick="loadReviews(this, '{@wineId}')">
-                                Виж мнения
-                            </button>
-                            <div class="review-container">
-                                </div>
-                        </td>
-                        <td>
-                            <div class="price-tag">
-                                <xsl:value-of select="price"/> 
-                                <xsl:text> </xsl:text>
-                                <xsl:value-of select="price/@currency"/>
-                            </div>
-                            <br/>
-                            <div class="rating">
-                                Рейтинг: <xsl:value-of select="rating"/>
-                            </div>
-                        </td>
-                    </tr>
-                </xsl:for-each>
-            </tbody>
-        </table>
+    <xsl:template name="renderCards">
+        <xsl:param name="items"/>
+        <xsl:for-each select="$items">
+            <div class="wine-card" 
+                 onclick="openWinePage('{@wineId}')" 
+                 data-price="{price}" 
+                 data-type="{type}" 
+                 data-vintage="{vintage}">
+                <img class="card-image" src="{unparsed-entity-uri(image/@source)}" alt="{name}"/>
+                <div class="card-name"><xsl:value-of select="name"/></div>
+                <div class="card-price">
+                    <xsl:value-of select="price"/> <xsl:value-of select="price/@currency"/>
+                </div>
+            </div>
+        </xsl:for-each>
     </xsl:template>
 
 </xsl:stylesheet>
