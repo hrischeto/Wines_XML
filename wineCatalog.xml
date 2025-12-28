@@ -14,6 +14,7 @@
     <!ENTITY wine_img06 SYSTEM "./images/bassarea_syrah.webp" NDATA jpeg>
     <!ENTITY wine_img07 SYSTEM "./images/villa_melnik_chardonnay.png" NDATA jpeg>
     <!ENTITY wine_img08 SYSTEM "./images/via_verde_misket.png" NDATA jpeg>
+    <!ENTITY wine_img10 SYSTEM "./images/aplauz-sandanski-misket.png" NDATA jpeg>
 ]>
 
 <wineCatalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="wineCatalogSchema.xsd">
@@ -26,7 +27,7 @@
             <image source="wine_img01"/>
             <origin>България</origin>
             <rating>3/5</rating>
-            <sommelierDescription>Много нежен светло-зеленикав цвят. Сортов нос с нотки на бял пипер.</sommelierDescription>
+            <sommelierDescription> Много нежен светло-зеленикав цвят. Сортов нос с нотки на бял пипер, грахова шушулка, коприва и бяла праскова. Тялото е леко, ефирно с пикантно-грейпфрутов финал.</sommelierDescription>
         </wine>
 
         <wine wineId="wine2" wineryIdRef="winery2" regionIdRef="region2">
@@ -58,7 +59,8 @@
             <image source="wine_img04"/>
             <origin>България</origin>
             <rating>3/5</rating>
-            <sommelierDescription>Бледозлатист цвят, свеж сортов нос с папрат и киви.</sommelierDescription>
+            <sommelierDescription>Чист бледозлатист цвят. Средноинтензивен сортов нос с нотки на папрат, зелена джанка, киви, бъз, лимонова кора. Сортово, с подчертана свежест и добра дължина.
+</sommelierDescription>
         </wine>
 
         <wine wineId="wine5" wineryIdRef="winery5" regionIdRef="region3">
@@ -69,10 +71,10 @@
             <image source="wine_img05"/>
             <origin>България</origin>
             <rating>4/5</rating>
-            <sommelierDescription>Интензивен нос с лимончело. Маслено, сочно и леко горчиво.</sommelierDescription>
+            <sommelierDescription>Интензивен нос с нотки на лимончело, маракуя и сладки подправки. Маслено, препечено, сочно и с лека горчивина на финала. </sommelierDescription>
         </wine>
 
-        <wine wineId="wine6" wineryIdRef="winery6" regionIdRef="region4">
+        <wine wineId="wine6" wineryIdRef="winery6" regionIdRef="region2">
             <name>Bassarea Syrah Reserve</name>
             <type>Сира</type>
             <vintage>2019</vintage>
@@ -80,10 +82,11 @@
             <image source="wine_img06"/>
             <origin>България</origin>
             <rating>4/5</rating>
-            <sommelierDescription>Тъмнорубинен цвят, нос с черен пипер и кожа.</sommelierDescription>
+            <sommelierDescription>Красив тъмнорубинен цвят. Типичен за сорта нос с нотки на черен пипер, сладък червен пипер, кожа, печено месо и топли землисти тонове. Тялото е средно до плътно, гладко, кадифено меко и благородно. Класна, атрактивна сира, в готовност да се пие, но може да отлежава известно време.
+</sommelierDescription>
         </wine>
 
-        <wine wineId="wine7" wineryIdRef="winery7" regionIdRef="region2">
+        <wine wineId="wine7" wineryIdRef="winery7" regionIdRef="region4">
             <name>Villa Melnik Aplauz Chardonnay Sur Lie</name>
             <type>Шардоне</type>
             <vintage>2016</vintage>
@@ -91,7 +94,7 @@
             <image source="wine_img07"/>
             <origin>България</origin>
             <rating>3/5</rating>
-            <sommelierDescription>Златист цвят, нос на масло, ванилия и кроасан.</sommelierDescription>
+            <sommelierDescription>Искрящ зехтинено златист цвят с красиви зелени отблясъци. Атрактивен нос с препечен хляб с масло, сладка ванилия и млечен шоколад. Тялото е плътно и обемно с изключително "вкусни" аромати на кроасан, масло с карамел и ванилия. Дълго, леко пикантно.</sommelierDescription>
         </wine>
 
         <wine wineId="wine8" wineryIdRef="winery8" regionIdRef="region2">
@@ -102,7 +105,17 @@
             <image source="wine_img08"/>
             <origin>България</origin>
             <rating>3/5</rating>
-            <sommelierDescription>Бледо сламест цвят, флорален нос и елегантен финал.</sommelierDescription>
+            <sommelierDescription>Нежен и искрящ бледо сламест цвят. Средно интензивен нос с ефектни леко препечени нотки и цветисти нюанси. Тялото е леко до средно с елегантен, пикантен финал.</sommelierDescription>
+        </wine>
+
+        <wine wineId="wine9" wineryIdRef="winery9" regionIdRef="region5">
+            <name>Старосел Мерло Дъб</name>
+            <type>Мерло</type>
+            <vintage>2021</vintage>
+            <price currency="BGN">21.00</price>
+            <image source="wine_img08"/>
+            <origin>България</origin>
+            <sommelierDescription>Цветът на виното е плътен, дълбок, с топли и керемидени нюанси. В него се открива плодовитостта, присъща за гроздето (череша, малина, боровинка), обогатени с ньансите на ванилия и подправки. Вкусът се отличава с превъзходен обем и дължина. Той е мек и елегантен.</sommelierDescription>
         </wine>
     </wines>
 
@@ -110,7 +123,8 @@
         <region regionId="region1"><name>Дунавска равнина</name></region>
         <region regionId="region2"><name>Тракийска низина</name></region>
         <region regionId="region3"><name>Черноморие</name></region>
-        <region regionId="region4"><name>Сакар</name></region>
+        <region regionId="region4"><name>Долината на Струма</name></region>
+        <region regionId="region5"><name>Розова долина</name></region>
     </regions>
 
     <wineries>
@@ -122,5 +136,6 @@
         <winery wineryId="winery6"><name>Вила Басареа</name></winery>
         <winery wineryId="winery7"><name>Вила Мелник</name></winery>
         <winery wineryId="winery8"><name>Виа Верде</name></winery>
+        <winery wineryId="winery9"><name>Старосел</name></winery>
     </wineries>
 </wineCatalog>
