@@ -12,70 +12,7 @@
             <head>
                 <title>Каталог на Български Вина</title>
                 <script src="https://d3js.org/d3.v7.min.js"></script>
-                
-                <style>
-                    body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; padding: 20px; color: #333; }
-                    h1 { text-align: center; color: #722f37; border-bottom: 3px solid #722f37; padding-bottom: 15px; }
-                    
-                    /* --- CONTROLS --- */
-                    .control-panel { 
-                        background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; 
-                        box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; align-items: center;
-                    }
-                    .btn-group button { 
-                        padding: 8px 12px; margin-right: 5px; cursor: pointer; border: 1px solid #722f37; 
-                        background: white; color: #722f37; border-radius: 4px; font-weight: bold;
-                    }
-                    .btn-group button:hover, .btn-group button.active { background: #722f37; color: white; }
-                    
-                    .filters { display: flex; gap: 10px; align-items: center; }
-                    .filters select { padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
-                    
-                    /* --- GRID --- */
-                    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
-                    
-                    /* --- CARDS --- */
-                    .wine-card { 
-                        background: white; border-radius: 8px; overflow: hidden; 
-                        box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;
-                        display: flex; flex-direction: column; text-align: center; padding-bottom: 10px;
-                    }
-                    .wine-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-                    .card-image { width: 100%; height: 180px; object-fit: contain; background: #f0f0f0; padding: 10px; box-sizing: border-box; }
-                    .card-name { padding: 10px; font-weight: bold; color: #2c3e50; min-height: 40px; display: flex; align-items: center; justify-content: center; }
-                    .card-price { margin-top: auto; color: #722f37; font-weight: bold; font-size: 1.1em; }
-                    
-                    /* --- SECTIONS --- */
-                    .view-section { display: none; }
-                    #view-all { display: block; } /* Default visible */
-                    h2.group-title { width: 100%; color: #722f37; border-left: 5px solid #722f37; padding-left: 10px; margin-top: 30px; }
-
-                    /* --- GOOGLE MAP --- */
-                    #map-container { 
-                        width: 100%; height: 500px; background: #e0f7fa; border-radius: 8px; 
-                        overflow: hidden; 
-                    }
-
-                    /* --- DETAILS PAGE --- */
-                    .wine-page { display: none; background: white; max-width: 900px; margin: 0 auto; padding: 30px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
-                    .back-btn { background: #722f37; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-bottom: 20px; }
-                    .page-content { display: flex; gap: 30px; flex-wrap: wrap; }
-                    .page-image img { max-width: 300px; width: 100%; border-radius: 8px; }
-                    .page-info { flex: 1; }
-                    .info-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-                    .info-table td { padding: 8px 0; border-bottom: 1px solid #eee; }
-                    .label { font-weight: bold; width: 120px; }
-                    
-                    /* --- D3 RATING --- */
-                    .rating-viz-container { display: flex; align-items: center; height: 30px; }
-                    .rating-viz-container svg { overflow: visible; }
-                    
-                    /* --- REVIEWS --- */
-                    .reviews-section { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-                    .review-container { margin-top: 15px; padding: 10px; background: #fff9c4; border-left: 4px solid #ff9800; display: none; }
-                    .review-item { padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #ddd; }
-                    .review-stars { float: right; color: #ff9800; }
-                </style>
+                <link rel="stylesheet" type="text/css" href="styles.css" />
                 
                 <script>
                 <![CDATA[
